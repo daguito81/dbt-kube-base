@@ -1,0 +1,19 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dbt-test-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dbt-snowflake-test
+  template:
+    metadata:
+      labels:
+        app: dbt-snowflake-test
+    spec:
+      containers:
+      - name: dbt-agent-snowflake
+        image: daguito81/dbt-agent-snowflake
+        imagePullPolicy: Never
