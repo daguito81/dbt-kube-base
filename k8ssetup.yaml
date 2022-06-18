@@ -4,5 +4,5 @@ metadata:
   name: dbt-project-repos
 data:
   # property-like keys; each key maps to a simple value
-  proyect_a: "https://randomprojecturl.github.com"
-  ui_properties_file_name: "user-interface.properties"
+  project_a: "git@github.com:daguito81/dbt-kube-projectA.git"
+  project_b: "git@github.com:daguito81/dbt-kube-projectB.git"

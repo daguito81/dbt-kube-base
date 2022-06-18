@@ -16,4 +16,71 @@ spec:
       containers:
       - name: dbt-agent-snowflake
         image: daguito81/dbt-agent-snowflake
+        env:
+        - name: PROJECT_NAME
+          value: project_b
+
+        - name: SNOWFLAKE_ACCOUNT
+          valueFrom:
+            secretKeyRef:
+              name: snowflake-creds-projecta
+              key: account
+        - name: SNOWFLAKE_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: snowflake-creds-projecta
+              key: database
+        - name: SNOWFLAKE_ROLE
+          valueFrom:
+            secretKeyRef:
+              name: snowflake-creds-projecta
+              key: role
+        - name: SNOWFLAKE_SCHEMA
+          valueFrom:
+            secretKeyRef:
+              name: snowflake-creds-projecta
+              key: schema
+        - name: SNOWFLAKE_USER
+          valueFrom:
+            secretKeyRef:
+              name: snowflake-creds-projecta
+              key: user
+        - name: SNOWFLAKE_WAREHOUSE
+          valueFrom:
+            secretKeyRef:
+              name: snowflake-creds-projecta
+              key: warehouse
+        lifecycle:
+          postStart:
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  chmod +x /src/init.sh &&
+                  /src/init.sh
+
+
+
         imagePullPolicy: Never
+
+        volumeMounts:
+        - name: secret-volume
+          readOnly: true
+          mountPath: "/root/ssh-keys/"
+        - name: dbt-config
+          readOnly: true
+          mountPath: "/root/dbt-config/"
+
+
+      volumes:
+      - name: secret-volume
+        secret:
+          secretName: repo-creds
+          optional: False
+          defaultMode: 0600
+      - name: dbt-config
+        configMap:
+          name: dbt-project-repos
+      
+      
