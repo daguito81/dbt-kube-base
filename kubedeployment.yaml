@@ -18,7 +18,7 @@ spec:
         image: daguito81/dbt-agent-snowflake
         env:
         - name: PROJECT_NAME
-          value: project_b
+          value: project_a
 
         - name: SNOWFLAKE_ACCOUNT
           valueFrom:
@@ -50,6 +50,16 @@ spec:
             secretKeyRef:
               name: snowflake-creds-projecta
               key: warehouse
+        - name: SNOWFLAKE_NATIVE_USER
+          valueFrom:
+            secretKeyRef:
+              name: snowflake-creds-projecta
+              key: native_user
+        - name: SNOWFLAKE_NATIVE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: snowflake-creds-projecta
+              key: native_password
         lifecycle:
           postStart:
             exec:
