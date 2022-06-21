@@ -1,13 +1,10 @@
 
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: batch/v1
+kind: Job
 metadata:
-  name: dbt-test-deployment
+  name: dbt-test-job
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: dbt-snowflake-test
+  selector: {}
   template:
     metadata:
       labels:
@@ -16,6 +13,8 @@ spec:
       containers:
       - name: dbt-agent-snowflake
         image: daguito81/dbt-agent-snowflake
+        command: ["/bin/sh", "-c", "/src/init.sh"]
+
         env:
         - name: PROJECT_NAME
           value: project_a
@@ -61,21 +60,6 @@ spec:
               name: snowflake-creds-projecta
               key: native_password
 
-        lifecycle:
-          postStart:
-            exec:
-              command:
-                - /bin/sh
-                - -c
-                - |
-                  /src/init.sh
-          # preStop:
-          #   exec:
-          #     command:
-          #       - python
-          #       - |
-          #         /src/parser.py
-
         resources:
           limits:
             cpu: 500m
@@ -89,7 +73,7 @@ spec:
         - name: dbt-config
           readOnly: true
           mountPath: "/root/dbt-config/"
-
+      restartPolicy: OnFailure
       volumes:
       - name: secret-volume
         secret:
@@ -99,3 +83,6 @@ spec:
       - name: dbt-config
         configMap:
           name: dbt-project-repos
+  backoffLimit: 4
+      
+      
