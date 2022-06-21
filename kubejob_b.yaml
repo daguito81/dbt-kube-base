@@ -8,7 +8,7 @@ spec:
   template:
     metadata:
       labels:
-        app: dbt-snowflake-test
+        app: dbt-snowflake-test-b
     spec:
       containers:
       - name: dbt-agent-snowflake
