@@ -7,9 +7,11 @@ git clone $(cat /root/dbt-config/$PROJECT_NAME) /src/dbt
 echo "RUNNING DBT"
 echo "BUILD"
 dbt build -t dev-password --project-dir /src/dbt/$PROJECT_NAME/ --profiles-dir /src/dbt/dbt_profiles/
-echo "RUN"
-dbt run -t dev-password --project-dir /src/dbt/$PROJECT_NAME/ --profiles-dir /src/dbt/dbt_profiles/
+# echo "RUN"
+# dbt run -t dev-password --project-dir /src/dbt/$PROJECT_NAME/ --profiles-dir /src/dbt/dbt_profiles/
 echo "DONE WITH DBT"
 echo "POST-RUNNING DBT"
 
 python /src/parser.py
+
+# tail -f /dev/null
