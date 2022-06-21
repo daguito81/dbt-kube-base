@@ -59,6 +59,16 @@ spec:
             secretKeyRef:
               name: snowflake-creds-projecta
               key: native_password
+        - name: DAGOLAKE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: azure-secrets
+              key: datalake_key
+        - name: DAGOLAKE_CONN_STRING
+          valueFrom:
+            secretKeyRef:
+              name: azure-secrets
+              key: datalake_conn
 
         resources:
           limits:

@@ -1,2 +1,4 @@
-dbt-snowflake==1.0.0
+dbt-snowflake==1.1.0
 pyyaml==6.0
+azure-storage-file-datalake==12.7.0
+pymongo==4.1.1
