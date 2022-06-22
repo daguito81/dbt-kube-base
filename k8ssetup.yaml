@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: dbt-project-repos
-data:
-  # property-like keys; each key maps to a simple value
-  project_a: "git@github.com:daguito81/dbt-kube-projectA.git"
-  project_b: "git@github.com:daguito81/dbt-kube-projectB.git"
