@@ -9,6 +9,8 @@ echo "BUILD"
 dbt build -t dev-password --project-dir /src/dbt/$PROJECT_NAME/ --profiles-dir /src/dbt/dbt_profiles/
 # echo "RUN"
 # dbt run -t dev-password --project-dir /src/dbt/$PROJECT_NAME/ --profiles-dir /src/dbt/dbt_profiles/
+echo "DOCS"
+dbt docs generate -t dev-password --project-dir /src/dbt/$PROJECT_NAME/ --profiles-dir /src/dbt/dbt_profiles/ --no-compile
 echo "DONE WITH DBT"
 echo "POST-RUNNING DBT"
 
