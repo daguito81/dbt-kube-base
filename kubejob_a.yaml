@@ -74,6 +74,7 @@ spec:
           limits:
             cpu: 500m
             memory: 200Mi
+
         imagePullPolicy: Never
 
         volumeMounts:
@@ -84,6 +85,7 @@ spec:
           readOnly: true
           mountPath: "/root/dbt-config/"
       restartPolicy: OnFailure
+
       volumes:
       - name: secret-volume
         secret:
@@ -93,6 +95,4 @@ spec:
       - name: dbt-config
         configMap:
           name: dbt-project-repos
-  backoffLimit: 4
-      
-      
+  backoffLimit: 3
