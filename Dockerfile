@@ -1,6 +1,6 @@
 FROM python:3.9
 
-RUN apt-get update && apt-get install -y nano jq vim
+# RUN apt-get update && apt-get install -y nano jq vim
 
 # Authorize Repository fingerprint
 RUN mkdir -p /root/.ssh && \
@@ -9,8 +9,7 @@ RUN mkdir -p /root/.ssh && \
 
 
 COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt
-RUN pip install --force-reinstall MarkupSafe==2.0.1
+RUN pip install -r requirements.txt && pip install --force-reinstall MarkupSafe==2.0.1
 
 COPY src /src
 RUN sed -i 's/\r$//' /src/init.sh && chmod +x /src/init.sh
