@@ -19,6 +19,9 @@ spec:
         - name: PROJECT_NAME
           value: project_b
 
+        - name: FULL_REFRESH
+          value: 'false'
+
         - name: SNOWFLAKE_ACCOUNT
           valueFrom:
             secretKeyRef:
