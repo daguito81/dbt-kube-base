@@ -1,26 +1,21 @@
 #!/bin/bash
 
 echo "Starting Init"
-echo "COPYING KEYS"
-cp /root/ssh-keys/ssh-privatekey /root/.ssh/id_ed25519
-cp /root/ssh-keys/ssh-publickey /root/.ssh/id_ed25519.pub
-echo "CLONING REPO"
-git clone $(cat /root/dbt-config/$PROJECT_NAME) /src/dbt
 echo "RUNNING DBT"
 echo "BUILD"
 
 if [[ "$FULL_REFRESH" = "true" ]]; then
     echo "Running dbt with Full Refresh"
-    dbt build -t dev-password --project-dir /src/dbt/$PROJECT_NAME/ --profiles-dir /src/dbt/dbt_profiles/ --full-refresh
+    dbt build -t dev-password --project-dir /src/dbt/project/ --profiles-dir /src/dbt/dbt_profiles/ --full-refresh
 else
     echo "Running dbt without Full Refresh"
-    dbt build -t dev-password --project-dir /src/dbt/$PROJECT_NAME/ --profiles-dir /src/dbt/dbt_profiles/
+    dbt build -t dev-password --project-dir /src/dbt/project/ --profiles-dir /src/dbt/dbt_profiles/
 fi
 
 # echo "RUN"
 # dbt run -t dev-password --project-dir /src/dbt/$PROJECT_NAME/ --profiles-dir /src/dbt/dbt_profiles/
 echo "DOCS"
-dbt docs generate -t dev-password --project-dir /src/dbt/$PROJECT_NAME/ --profiles-dir /src/dbt/dbt_profiles/ --no-compile
+dbt docs generate -t dev-password --project-dir /src/dbt/project/ --profiles-dir /src/dbt/dbt_profiles/ --no-compile
 echo "DONE WITH DBT"
 echo "POST-RUNNING DBT"
 
