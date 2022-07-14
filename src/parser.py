@@ -55,16 +55,16 @@ def upload_html_file_adls2(path, file_system_client, file_name, html_file=False)
 
 def consolidate_documentation():
     logging.warning("Consolidating Documentation into index2.html")
-    with open(f'/src/dbt/{PROJECT_NAME}/target/index.html', 'r') as f:
+    with open('/src/dbt/project/target/index.html', 'r') as f:
         content_index = f.read()
 
-    with open(f'/src/dbt/{PROJECT_NAME}/target/manifest.json', 'r') as f:
+    with open('/src/dbt/project/target/manifest.json', 'r') as f:
         json_manifest = json.loads(f.read())
 
-    with open(f'/src/dbt/{PROJECT_NAME}/target/catalog.json', 'r') as f:
+    with open('/src/dbt/project/target/catalog.json', 'r') as f:
         json_catalog = json.loads(f.read())
 
-    with open(f'/src/dbt/{PROJECT_NAME}/target/index2.html', 'w') as f:
+    with open('/src/dbt/project/target/index2.html', 'w') as f:
         new_str = "o=[{label: 'manifest', data: " + json.dumps(json_manifest) + "},{label: 'catalog', data: " + json.dumps(json_catalog) + "}]"
         new_content = content_index.replace(search_str, new_str)
         f.write(new_content)
@@ -74,12 +74,12 @@ consolidate_documentation()
 
 file_system_client = create_file_system_client(storage_account_name, storage_account_key, container_name, PROJECT_NAME)
 # index.html
-upload_html_file_adls2(f"/src/dbt/{PROJECT_NAME}/target/index.html", file_system_client, "index.html", True)
+upload_html_file_adls2("/src/dbt/project/target/index.html", file_system_client, "index.html", True)
 # catalog.json
-upload_html_file_adls2(f"/src/dbt/{PROJECT_NAME}/target/catalog.json", file_system_client, "catalog.json")
+upload_html_file_adls2("/src/dbt/project/target/catalog.json", file_system_client, "catalog.json")
 # manifest.json
-upload_html_file_adls2(f"/src/dbt/{PROJECT_NAME}/target/manifest.json", file_system_client, "manifest.json")
+upload_html_file_adls2("/src/dbt/project/target/manifest.json", file_system_client, "manifest.json")
 # run_results.json
-upload_html_file_adls2(f"/src/dbt/{PROJECT_NAME}/target/run_results.json", file_system_client, "run_results.json")
+upload_html_file_adls2("/src/dbt/project/target/run_results.json", file_system_client, "run_results.json")
 # Index2.html
-upload_html_file_adls2(f"/src/dbt/{PROJECT_NAME}/target/index2.html", file_system_client, "index2.html")
+upload_html_file_adls2("/src/dbt/project/target/index2.html", file_system_client, "index2.html")
