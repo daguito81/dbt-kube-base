@@ -8,7 +8,6 @@ python /src/setup.py $service
 TOKEN=$(head "./tokenazad/${service}.token")
 export SNOWFLAKE_TOKEN=$TOKEN
 
-echo $SNOWFLAKE_TOKEN
 if [[ "$FULL_REFRESH" = "true" ]]; then
     echo "Running dbt with Full Refresh"
     dbt build -t dev-oauth --project-dir /src/dbt/project/ --profiles-dir /src/dbt/dbt_profiles/ --full-refresh

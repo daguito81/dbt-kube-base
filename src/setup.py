@@ -11,6 +11,7 @@ client = AzureADTokenSetter(
     tenant=os.getenv("TENANT_ID"),
     client_id=os.getenv("CLIENT_ID"),
     client_secret=os.getenv("CLIENT_SECRET"),
+    oauth_scope=os.getenv("OAUTH_SCOPE"),
     var_prefix=service,
 )
 
